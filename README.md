@@ -1,2 +1,2 @@
 # Worldbuilding
-Worldbuilding project for study block 2
+Worldbuilding project for year 2
