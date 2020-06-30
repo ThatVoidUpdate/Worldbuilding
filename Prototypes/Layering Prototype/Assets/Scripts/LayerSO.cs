@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Layer")]
 public class LayerSO : ScriptableObject
 {
-    
+    public float Distance;
 }

@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30fd0a34f34442148a47004596df3f71, type: 3}
   m_Name: Air
   m_EditorClassIdentifier: 
+  Distance: 1.6

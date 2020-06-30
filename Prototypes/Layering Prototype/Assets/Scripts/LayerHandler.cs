@@ -7,6 +7,7 @@ public class LayerHandler : MonoBehaviour
     public GameObject LayerCollection;
     private List<Layer> Layers;
     private GameObject GroundLayer;
+    public LayerSO ActiveLayerID;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,7 @@ public class LayerHandler : MonoBehaviour
 
     public void SwitchLayer(LayerSO layerID)
     {
+        ActiveLayerID = layerID;
         foreach (Layer layer in Layers)
         {
             layer.gameObject.SetActive(layer.LayerID == layerID);

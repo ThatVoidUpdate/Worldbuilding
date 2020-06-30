@@ -590,9 +590,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9c40e54178e954c8e27fb5137b0f14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerHandler: {fileID: 935695697}
   HorizontalSensitivity: 0.4
   VerticalSensitivity: 0.2
   Distance: 2
+  Lerptime: 0.3
 --- !u!1 &588570673
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,6 +864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LayerCollection: {fileID: 712925708}
+  ActiveLayerID: {fileID: 0}
 --- !u!4 &935695698
 Transform:
   m_ObjectHideFlags: 0

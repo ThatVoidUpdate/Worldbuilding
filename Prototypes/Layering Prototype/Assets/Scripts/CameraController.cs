@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public LayerHandler layerHandler;
+
     public float HorizontalSensitivity;
     public float VerticalSensitivity;
 
@@ -14,7 +16,11 @@ public class CameraController : MonoBehaviour
     private Vector3 CurrentMousePosition;
     private Vector2 MouseDelta;
 
-    public float Distance;
+    public float Distance = 2;
+    private float OldDistance = 2;
+
+    public float Lerptime = 0.5f;
+    private float CurrentLerpTime = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +61,28 @@ public class CameraController : MonoBehaviour
                 VerticalPosition -= YRotationDelta;
             }            
         }
+
+        float NewDistance = layerHandler.ActiveLayerID != null ? layerHandler.ActiveLayerID.Distance : 2;
+
+        if (NewDistance != OldDistance)
+        {
+            Distance = Mathf.SmoothStep(OldDistance, NewDistance, CurrentLerpTime / Lerptime);
+
+            if (Mathf.Abs(NewDistance-Distance) <= 0.01)
+            {
+                Distance = NewDistance;
+                OldDistance = NewDistance;
+                CurrentLerpTime = 0;
+            }
+            else
+            {
+                CurrentLerpTime += Time.deltaTime;
+            }            
+        }
+        else
+        {
+            Distance = NewDistance;
+        }        
 
         /* Convert LatLong to ECEF
          * https://stackoverflow.com/questions/8981943/lat-long-to-x-y-z-position-in-js-not-working?noredirect=1&lq=1 (modified to fix coordinate system)
