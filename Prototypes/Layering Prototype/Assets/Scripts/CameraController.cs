@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    /*Target 0,0,0
-     * Mouse horizontal changes latitude
-     * Mouse vertical changes longitude
-     * 
-     */
-
-
     public float HorizontalSensitivity;
     public float VerticalSensitivity;
 
@@ -26,14 +19,10 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        float cosLon = Mathf.Cos(HorizontalPosition * Mathf.PI / 180f);
-        float sinLon = Mathf.Sin(HorizontalPosition * Mathf.PI / 180f);
-        float cosLat = Mathf.Cos(VerticalPosition * Mathf.PI / 180f);
-        float sinLat = Mathf.Sin(VerticalPosition * Mathf.PI / 180f);
-
-        transform.position = new Vector3(cosLat * sinLon, sinLat, cosLat * cosLon) * Distance;
+        transform.position = new Vector3(Mathf.Cos(VerticalPosition * Mathf.Deg2Rad) * Mathf.Sin(HorizontalPosition * Mathf.Deg2Rad),
+                                         Mathf.Sin(VerticalPosition * Mathf.Deg2Rad),
+                                         Mathf.Cos(VerticalPosition * Mathf.Deg2Rad) * Mathf.Cos(HorizontalPosition * Mathf.Deg2Rad)) * Distance;
         transform.LookAt(Vector3.zero);
-        print(HorizontalPosition + " " + VerticalPosition);
     }
 
     // Update is called once per frame
@@ -46,7 +35,6 @@ public class CameraController : MonoBehaviour
         {
             MouseDelta.x = -(OldMousePosition - CurrentMousePosition).x;
             MouseDelta.y = (OldMousePosition - CurrentMousePosition).y;
-            //Debug.Log(MouseDelta);
 
             float XRotationDelta = MouseDelta.x * HorizontalSensitivity;
             float YRotationDelta = MouseDelta.y * VerticalSensitivity;
@@ -62,14 +50,14 @@ public class CameraController : MonoBehaviour
             }
 
             VerticalPosition += YRotationDelta;
-            if (VerticalPosition < -90 || VerticalPosition > 90)
+            if (VerticalPosition < -89.9 || VerticalPosition > 89.9)
             {
                 VerticalPosition -= YRotationDelta;
-            }
-            
+            }            
+        }
 
-            //convert lat-long to ecef
-            /* https://stackoverflow.com/questions/8981943/lat-long-to-x-y-z-position-in-js-not-working?noredirect=1&lq=1 (modified to fix coordinate system)
+        /* Convert LatLong to ECEF
+         * https://stackoverflow.com/questions/8981943/lat-long-to-x-y-z-position-in-js-not-working?noredirect=1&lq=1 (modified to fix coordinate system)
              * var cosLat = Math.cos(lat * Math.PI / 180.0);
              * var sinLat = Math.sin(lat * Math.PI / 180.0);
              * var cosLon = Math.cos(lon * Math.PI / 180.0);
@@ -80,15 +68,9 @@ public class CameraController : MonoBehaviour
              * marker_mesh.position.z = rad * sinLat;
              */
 
-            float cosLon = Mathf.Cos(HorizontalPosition * Mathf.PI / 180f);
-            float sinLon = Mathf.Sin(HorizontalPosition * Mathf.PI / 180f);
-            float cosLat = Mathf.Cos(VerticalPosition * Mathf.PI / 180f);
-            float sinLat = Mathf.Sin(VerticalPosition * Mathf.PI / 180f);
-            
-            transform.position = new Vector3(cosLat * sinLon, sinLat, cosLat * cosLon) * Distance;
-            transform.LookAt(Vector3.zero);
-            print(HorizontalPosition + " " + VerticalPosition);
-            
-        }
+        transform.position = new Vector3(Mathf.Cos(VerticalPosition * Mathf.Deg2Rad) * Mathf.Sin(HorizontalPosition * Mathf.Deg2Rad), 
+                                         Mathf.Sin(VerticalPosition * Mathf.Deg2Rad), 
+                                         Mathf.Cos(VerticalPosition * Mathf.Deg2Rad) * Mathf.Cos(HorizontalPosition * Mathf.Deg2Rad)) * Distance;
+        transform.LookAt(Vector3.zero);
     }
 }

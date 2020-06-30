@@ -64,6 +64,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\Layer.cs" />
+    <Compile Include="Assets\Scripts\LayerHandler.cs" />
+    <Compile Include="Assets\Scripts\LayerSO.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/UNI/Worldbuilding/Prototypes/Layering Prototype/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
