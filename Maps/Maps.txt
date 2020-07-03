@@ -1,0 +1,17 @@
+Fixed Equirectangular - 20 degree graticules
+Arctic - ArcticOrthographic165.png Orthographic, rotated 165 degrees
+Central Continent - CentralEquidistantConic-15.png Equidistant Conic focused on 15W
+East Continent - EastMercator.png Mercator
+Antarctic Continent - AzimuthalAntarctic.png Azimuthal
+3200, 2700 - 3800 West, 800 North - 97W 20N 97W20NOrthographic.png
+1606, 2277 - 5394 West, 1223 North - 137W 30N OrthographicIceland.png Orthographic
+9647, 2596 - 2647 East, 904 North - 68.07E 22.3N 68E22NOrthographic.png Orthographic
+10142, 1100 - 3142 East, 2400 North - 80.79E 61.9N 81E62NOrthographic.png Orthographic
+297, 3058 - 6703 West, 442 North - 171.4W 11.5N 171E11NOrthographic.png Orthographic
+297, 4235 - 6703 West, 735 South - 172.9W 19.5S 173W20SOrthographic.png Orthographic
+
+
+360 = 14000
+180 = 7000
+1 degree = 38.8889px
+Center = (7000, 3500)
