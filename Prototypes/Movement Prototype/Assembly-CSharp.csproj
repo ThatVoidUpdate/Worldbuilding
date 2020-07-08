@@ -69,7 +69,9 @@
     <Compile Include="Assets\Scripts\Layer.cs" />
     <Compile Include="Assets\Scripts\LayerHandler.cs" />
     <Compile Include="Assets\Scripts\LayerSO.cs" />
+    <Compile Include="Assets\Scripts\ShipList.cs" />
     <Compile Include="Assets\Scripts\ShipMover.cs" />
+    <Compile Include="Assets\Scripts\ShipSpawner.cs" />
     <Compile Include="Assets\Scripts\Utilities.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/UNI/Worldbuilding/Prototypes/Movement Prototype/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>

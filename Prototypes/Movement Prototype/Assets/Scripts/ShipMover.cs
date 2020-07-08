@@ -6,27 +6,40 @@ public class ShipMover : MonoBehaviour, IClickable
 {
     public float TargetLat;
     public float TargetLong;
-    public float currentLat;
-    public float currentLong;
+    private float TargetLatRad;
+    private float TargetLongRad;
+    float currentLat;
+    float currentLong;
 
     public float speed;
     public LayerSO CurrentLayer;
+
+    Vector3 LastPosition;
 
     float Distance;
 
     bool selected;
 
+    [HideInInspector]
+    public ShipList Ships;
+
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = Utilities.LatLongToXYZ(TargetLat, TargetLong, CurrentLayer.Distance);
+        TargetLatRad = TargetLat * Mathf.Deg2Rad;
+        TargetLongRad = TargetLong * Mathf.Deg2Rad;
+        transform.position = Utilities.LatLongToXYZ(TargetLatRad, TargetLongRad, CurrentLayer.Distance);
     }
 
     // Update is called once per frame
     void Update()
     {
+        LastPosition = transform.position;
+        TargetLatRad = TargetLat * Mathf.Deg2Rad;
+        TargetLongRad = TargetLong * Mathf.Deg2Rad;
+
         //calculate target position
-        Vector3 Target = Utilities.LatLongToXYZ(TargetLat, TargetLong, CurrentLayer.Distance);
+        Vector3 Target = Utilities.LatLongToXYZ(TargetLatRad, TargetLongRad, CurrentLayer.Distance);
 
         //calculate bearing
         /* https://www.movable-type.co.uk/scripts/latlong.html#bearing
@@ -35,11 +48,10 @@ public class ShipMover : MonoBehaviour, IClickable
            const θ = Math.atan2(y, x);
            const brng = (θ*180/Math.PI + 360) % 360; // in degrees
          */
-        float y = Mathf.Sin(TargetLong - currentLong) * Mathf.Cos(TargetLat);
-        float x = Mathf.Cos(currentLat) * Mathf.Sin(TargetLat) - Mathf.Sin(currentLat) * Mathf.Cos(TargetLat) * Mathf.Cos(TargetLong - currentLong);
+        float y = Mathf.Sin(TargetLongRad - currentLong) * Mathf.Cos(TargetLatRad);
+        float x = Mathf.Cos(currentLat) * Mathf.Sin(TargetLatRad) - Mathf.Sin(currentLat) * Mathf.Cos(TargetLatRad) * Mathf.Cos(TargetLongRad - currentLong);
         float theta = Mathf.Atan2(y, x);
         float bearing = (theta * 180 / Mathf.PI + 360) % 360;
-        print("Bearing: " + bearing + ", Theta: " + theta);
 
         //calculate next position
         /*
@@ -56,18 +68,29 @@ public class ShipMover : MonoBehaviour, IClickable
         float nextLong = currentLong + Mathf.Atan2(y, x);
 
         Vector3 nextPosition = Utilities.LatLongToXYZ(nextLat, nextLong, CurrentLayer.Distance);
+
         transform.position = nextPosition;
+
+        /*//check if we are about to reach the target point
+        if (Mathf.Acos(Vector3.Dot(transform.position - LastPosition, 
+            Utilities.LatLongToXYZ(TargetLatRad, TargetLongRad, CurrentLayer.Distance) - transform.position) / 
+            ((transform.position - LastPosition).magnitude * (Utilities.LatLongToXYZ(TargetLatRad, TargetLongRad, CurrentLayer.Distance) - transform.position).magnitude)) * Mathf.Rad2Deg > 90)
+
+        {
+            transform.position = Utilities.LatLongToXYZ(TargetLatRad, TargetLatRad, CurrentLayer.Distance);
+        } 
+        */
 
         currentLat = nextLat;
         currentLong = nextLong;
 
         transform.up = transform.position.normalized;
-        
     }
 
     public void OnBecomeClicked()
     {
         selected = true;
         Debug.Log("Ship was clicked");
+        Ships.SelectedShips.Add(this.gameObject);
     }
 }
