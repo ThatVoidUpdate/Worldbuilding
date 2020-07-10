@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6447264061794093428}
   - component: {fileID: 6447264061794093429}
   - component: {fileID: 6447264061794093194}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: TestShip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,3 +108,6 @@ MonoBehaviour:
   TargetLong: 0
   speed: 0.01
   CurrentLayer: {fileID: 11400000, guid: 977da60aa717f3b4dbd8f6db5317976d, type: 2}
+  ID: 0
+  Planet: {fileID: 0}
+  Ships: {fileID: 0}

@@ -63,10 +63,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\MessageForwarder.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\Clickable.cs" />
     <Compile Include="Assets\Scripts\ClickHandler.cs" />
     <Compile Include="Assets\Scripts\CustomEvents.cs" />
-    <Compile Include="Assets\Scripts\IClickable.cs" />
     <Compile Include="Assets\Scripts\Layer.cs" />
     <Compile Include="Assets\Scripts\LayerHandler.cs" />
     <Compile Include="Assets\Scripts\LayerSO.cs" />

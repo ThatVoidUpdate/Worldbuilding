@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipMover : MonoBehaviour, IClickable
+public class ShipMover : Clickable
 {
     public float TargetLat;
     public float TargetLong;
@@ -15,6 +15,8 @@ public class ShipMover : MonoBehaviour, IClickable
     public LayerSO CurrentLayer;
 
     public int ID;
+
+    public GameObject Planet;
 
     Vector3 LastPosition;
 
@@ -71,7 +73,7 @@ public class ShipMover : MonoBehaviour, IClickable
 
         Vector3 nextPosition = Utilities.LatLongToXYZ(nextLat, nextLong, CurrentLayer.Distance);
 
-        transform.position = nextPosition;
+        transform.position = nextPosition + Planet.transform.position;
 
         /*//check if we are about to reach the target point
         if (Mathf.Acos(Vector3.Dot(transform.position - LastPosition, 
@@ -86,10 +88,10 @@ public class ShipMover : MonoBehaviour, IClickable
         currentLat = nextLat;
         currentLong = nextLong;
 
-        transform.up = transform.position.normalized;
+        transform.up = (transform.position - Planet.transform.position).normalized;
     }
 
-    public void OnBecomeClicked()
+    public override void OnBecomeClicked()
     {
         selected = true;
         Debug.Log("Ship was clicked");

@@ -8,6 +8,8 @@ public class ClickHandler : MonoBehaviour
     private Camera cam;
     public ShipList Ships;
 
+    public StringEvent ShipMoved;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,8 +27,11 @@ public class ClickHandler : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Unit", "Building")))
             {
                 print("Clicked on unit/building");
-                IClickable clickable = hit.collider.gameObject.GetComponent<IClickable>();
-                clickable?.OnBecomeClicked();
+                Clickable clickable = hit.collider.gameObject.GetComponent<Clickable>();
+                if (clickable.Owned)
+                {
+                    clickable?.OnBecomeClicked();
+                }                
             }
             else if (Physics.Raycast(ray, out hit, LayerMask.GetMask("Layer")))
             {
@@ -38,8 +43,12 @@ public class ClickHandler : MonoBehaviour
                     print("Clicked at " + LatLong.Item1 * Mathf.Rad2Deg + ", " + LatLong.Item2 * Mathf.Rad2Deg);
                     foreach (GameObject ship in Ships.SelectedShips)
                     {
-                        ship.GetComponent<ShipMover>().TargetLat = LatLong.Item1 * Mathf.Rad2Deg;
-                        ship.GetComponent<ShipMover>().TargetLong = LatLong.Item2 * Mathf.Rad2Deg;
+                        //ship.GetComponent<ShipMover>().TargetLat = LatLong.Item1 * Mathf.Rad2Deg;
+                        //ship.GetComponent<ShipMover>().TargetLong = LatLong.Item2 * Mathf.Rad2Deg;
+                        int ShipID = ship.GetComponent<ShipMover>().ID;
+                        string data = "SETPOS|" + ShipID + "|" + LatLong.Item1 * Mathf.Rad2Deg + "," + LatLong.Item2 * Mathf.Rad2Deg;
+                        Ships.SetTargetPosition(data);
+                        ShipMoved.Invoke(data);
                     }
                 }
             }

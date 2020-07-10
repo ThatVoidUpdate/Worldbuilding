@@ -6,7 +6,7 @@ public class LayerHandler : MonoBehaviour
 {
     public List<GameObject> LayerCollections;
     private List<Layer> Layers;
-    private GameObject GroundLayer;
+    private List<GameObject> GroundLayers = new List<GameObject>();
     public LayerSO ActiveLayerID;
 
     // Start is called before the first frame update
@@ -26,7 +26,7 @@ public class LayerHandler : MonoBehaviour
         {
             if (layer.LayerID.name == "Ground")
             {
-                GroundLayer = layer.gameObject;
+                GroundLayers.Add(layer.gameObject);
             }
             else
             {
@@ -42,6 +42,10 @@ public class LayerHandler : MonoBehaviour
         {
             layer.gameObject.SetActive(layer.LayerID == layerID);
         }
-        GroundLayer.SetActive(true);
+        foreach (GameObject GroundLayer in GroundLayers)
+        {
+            GroundLayer.SetActive(true);
+        }
+        
     }
 }
