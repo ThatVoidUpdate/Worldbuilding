@@ -24,6 +24,10 @@ public class CameraController : MonoBehaviour
 
     public float CameraDistanceMultiplier;
 
+    private Vector3 CameraOrbitOrigin;
+    public GameObject Planet;
+    public GameObject OtherPlanet;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -101,7 +105,12 @@ public class CameraController : MonoBehaviour
              */
 
 
-        transform.position = Utilities.LatLongToXYZ(VerticalPosition, HorizontalPosition, Distance);
-        transform.LookAt(Vector3.zero);
+        transform.position = Utilities.LatLongToXYZ(VerticalPosition, HorizontalPosition, Distance) + CameraOrbitOrigin;
+        transform.LookAt(CameraOrbitOrigin);
+    }
+
+    public void SwitchPlanet(bool AtMyPlanet)
+    {
+        CameraOrbitOrigin = AtMyPlanet ? Planet.transform.position : OtherPlanet.transform.position;
     }
 }

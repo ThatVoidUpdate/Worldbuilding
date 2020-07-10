@@ -14,11 +14,6 @@ public class ShipSpawner : MonoBehaviour
         Ship.transform.position = Utilities.LatLongToXYZ(0, 0, Ship.GetComponent<ShipMover>().CurrentLayer.Distance);
         Ships.Ships.Add(Ship);
         Ship.GetComponent<ShipMover>().Ships = Ships;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Ship.GetComponent<ShipMover>().ID = (int)Random.Range(0, 9999999999);
     }
 }

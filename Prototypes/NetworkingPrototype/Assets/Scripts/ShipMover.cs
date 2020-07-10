@@ -14,6 +14,8 @@ public class ShipMover : MonoBehaviour, IClickable
     public float speed;
     public LayerSO CurrentLayer;
 
+    public int ID;
+
     Vector3 LastPosition;
 
     float Distance;
